@@ -60,6 +60,7 @@ class L2Normalization(Layer):
 
     def call(self, x, mask=None):
         output = tf.math.l2_normalize(x, self.axis)
+        print(output, self.gamma)
         return output * self.gamma
 
     def get_config(self):
