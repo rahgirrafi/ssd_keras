@@ -266,11 +266,12 @@ def ssd_300(image_size,
     input_shape=image_size,
     include_top=False,
     weights="imagenet",
+    pooling=None
     )
     MobileNet_base.trainable = False
     inputs = keras.Input(shape=image_size)
-    x = base_model_mn_v2(inputs, training=False)         
-    fc6 = Conv2D(1024, (3, 3), dilation_rate=(6, 6), activation='relu', padding='same', kernel_initializer='he_normal', kernel_regularizer=l2(l2_reg), name='fc6')(x)
+    base_model_output = base_model.get_layer('block_13_expand_relu').output        
+    fc6 = Conv2D(1024, (3, 3), dilation_rate=(6, 6), activation='relu', padding='same', kernel_initializer='he_normal', kernel_regularizer=l2(l2_reg), name='fc6')(base_model_output)
 
     fc7 = Conv2D(1024, (1, 1), activation='relu', padding='same', kernel_initializer='he_normal', kernel_regularizer=l2(l2_reg), name='fc7')(fc6)
 
@@ -286,7 +287,7 @@ def ssd_300(image_size,
     conv8_2 = Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='valid', kernel_initializer='he_normal', kernel_regularizer=l2(l2_reg), name='conv8_2')(conv8_1)
 
     conv9_1 = Conv2D(128, (1, 1), activation='relu', padding='same', kernel_initializer='he_normal', kernel_regularizer=l2(l2_reg), name='conv9_1')(conv8_2)
-    conv9_2 = Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='valid', kernel_initializer='he_normal', kernel_regularizer=l2(l2_reg), name='conv9_2')(conv9_1)
+    conv9_2 = Conv2D(256, (3, 3), strides=(1, 1), activation='relu', padding='same', kernel_initializer='he_normal', kernel_regularizer=l2(l2_reg), name='conv9_2')(conv9_1)
 
     # Feed conv4_3 into the L2 normalization layer
     conv4_3_norm = L2Normalization(gamma_init=20, name='conv4_3_norm')(conv4_3)
