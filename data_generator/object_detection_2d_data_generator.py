@@ -463,7 +463,7 @@ class DataGenerator:
         for images_dir, image_set_filename, annotations_dir in zip(images_dirs, image_set_filenames, annotations_dirs):
             # Read the image set file that so that we know all the IDs of all the images to be included in the dataset.
             with open(image_set_filename) as f:
-                image_ids = [line.strip()[0] for line in f] # Note: These are strings, not integers.
+                image_ids = [line.strip()[0:6] for line in f] # Note: These are strings, not integers.
                 self.image_ids += image_ids
 
             if verbose: it = tqdm(image_ids, desc="Processing image set '{}'".format(os.path.basename(image_set_filename)), file=sys.stdout)
