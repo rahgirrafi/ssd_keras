@@ -44,12 +44,13 @@ class L2Normalization(Layer):
     '''
 
     def __init__(self, gamma_init=20, **kwargs):
-        if K.image_data_format() == 'tf':
-            self.axis = 3
-        else:
-            self.axis = 1
-        self.gamma_init = gamma_init
-        super(L2Normalization, self).__init__(**kwargs)
+       # CORRECTED: Use proper Keras image format check
+       if K.image_data_format() == 'channels_last':
+           self.axis = -1  # More robust way to specify last axis
+       else:
+           self.axis = 1
+       self.gamma_init = gamma_init
+       super(L2Normalization, self).__init__(**kwargs)
 
     def build(self, input_shape):
         self.input_spec = [InputSpec(shape=input_shape)]
