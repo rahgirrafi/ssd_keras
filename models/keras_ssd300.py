@@ -263,12 +263,12 @@ def ssd_300(image_size,
     ############################################################################
 
     base_model_mn_v2 = MobileNet_base = MobileNetV2(
-    input_shape=(150,150,3),
+    input_shape=image_size,
     include_top=False,
     weights="imagenet",
     )
     MobileNet_base.trainable = False
-    inputs = keras.Input(shape=(150, 150, 3))
+    inputs = keras.Input(shape=image_size)
     x = base_model_mn_v2(inputs, training=False)         
     fc6 = Conv2D(1024, (3, 3), dilation_rate=(6, 6), activation='relu', padding='same', kernel_initializer='he_normal', kernel_regularizer=l2(l2_reg), name='fc6')(x)
 
