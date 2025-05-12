@@ -367,7 +367,7 @@ def ssd_300(image_size,
     # Axis 0 (batch) and axis 2 (n_classes or 4, respectively) are identical for all layer predictions,
     # so we want to concatenate along axis 1, the number of boxes per layer
     # Output shape of `mbox_conf`: (batch, n_boxes_total, n_classes)
-    mbox_conf = Concatenate(axis=1, name='mbox_conf')([conv4_3_norm_mbox_conf_reshape,
+    mbox_conf = Concatenate(axis=1, name='mbox_conf')([block13_norm_mbox_conf_reshape,
                                                        fc7_mbox_conf_reshape,
                                                        conv6_2_mbox_conf_reshape,
                                                        conv7_2_mbox_conf_reshape,
@@ -375,7 +375,7 @@ def ssd_300(image_size,
                                                        conv9_2_mbox_conf_reshape])
 
     # Output shape of `mbox_loc`: (batch, n_boxes_total, 4)
-    mbox_loc = Concatenate(axis=1, name='mbox_loc')([conv4_3_norm_mbox_loc_reshape,
+    mbox_loc = Concatenate(axis=1, name='mbox_loc')([block13_norm_mbox_loc_reshape,
                                                      fc7_mbox_loc_reshape,
                                                      conv6_2_mbox_loc_reshape,
                                                      conv7_2_mbox_loc_reshape,
@@ -383,7 +383,7 @@ def ssd_300(image_size,
                                                      conv9_2_mbox_loc_reshape])
 
     # Output shape of `mbox_priorbox`: (batch, n_boxes_total, 8)
-    mbox_priorbox = Concatenate(axis=1, name='mbox_priorbox')([conv4_3_norm_mbox_priorbox_reshape,
+    mbox_priorbox = Concatenate(axis=1, name='mbox_priorbox')([block13_norm_mbox_priorbox_reshape,
                                                                fc7_mbox_priorbox_reshape,
                                                                conv6_2_mbox_priorbox_reshape,
                                                                conv7_2_mbox_priorbox_reshape,
@@ -426,7 +426,7 @@ def ssd_300(image_size,
         raise ValueError("`mode` must be one of 'training', 'inference' or 'inference_fast', but received '{}'.".format(mode))
 
     if return_predictor_sizes:
-        predictor_sizes = np.array([conv4_3_norm_mbox_conf._keras_shape[1:3],
+        predictor_sizes = np.array([block13_norm_mbox_conf._keras_shape[1:3],
                                      fc7_mbox_conf._keras_shape[1:3],
                                      conv6_2_mbox_conf._keras_shape[1:3],
                                      conv7_2_mbox_conf._keras_shape[1:3],
