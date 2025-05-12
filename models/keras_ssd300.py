@@ -18,6 +18,8 @@ limitations under the License.
 
 from __future__ import division
 import numpy as np
+import keras
+from keras.applications import MobileNetV2
 from keras.models import Model
 from keras.layers import Input, Lambda, Activation, Conv2D, MaxPooling2D, ZeroPadding2D, Reshape, Concatenate
 from keras.regularizers import l2
