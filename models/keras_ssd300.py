@@ -269,9 +269,8 @@ def ssd_300(image_size,
     )
     MobileNet_base.trainable = False
     inputs = keras.Input(shape=(150, 150, 3))
-    x = base_model_mn_v2(inputs, training=False)
-    pool_last = keras.layers.GlobalAveragePooling2D()(x)           
-    fc6 = Conv2D(1024, (3, 3), dilation_rate=(6, 6), activation='relu', padding='same', kernel_initializer='he_normal', kernel_regularizer=l2(l2_reg), name='fc6')(pool_last)
+    x = base_model_mn_v2(inputs, training=False)         
+    fc6 = Conv2D(1024, (3, 3), dilation_rate=(6, 6), activation='relu', padding='same', kernel_initializer='he_normal', kernel_regularizer=l2(l2_reg), name='fc6')(x)
 
     fc7 = Conv2D(1024, (1, 1), activation='relu', padding='same', kernel_initializer='he_normal', kernel_regularizer=l2(l2_reg), name='fc7')(fc6)
 
