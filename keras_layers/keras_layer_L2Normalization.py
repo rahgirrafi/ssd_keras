@@ -59,7 +59,7 @@ class L2Normalization(Layer):
         super(L2Normalization, self).build(input_shape)
 
     def call(self, x, mask=None):
-        output = K.l2_normalize(x, self.axis)
+        output = tf.math.l2_normalize(x, self.axis)
         return output * self.gamma
 
     def get_config(self):
