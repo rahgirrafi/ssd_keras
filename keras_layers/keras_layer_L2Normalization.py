@@ -54,9 +54,13 @@ class L2Normalization(Layer):
 
     def build(self, input_shape):
         self.input_spec = [InputSpec(shape=input_shape)]
-        gamma = self.gamma_init * np.ones((input_shape[self.axis],))
-        self.gamma = tf.Variable(gamma, name='{}_gamma'.format(self.name), dtype=tf.float32)
-        self._trainable_weights = [self.gamma]
+        # PROPERLY register the gamma parameter using add_weight()
+        self.gamma = self.add_weight(
+            name='gamma', 
+            shape=(input_shape[self.axis],),
+            initializer=tf.constant_initializer(self.gamma_init),
+            trainable=True
+        )
         super(L2Normalization, self).build(input_shape)
 
     def call(self, x, mask=None):
