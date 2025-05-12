@@ -171,7 +171,7 @@ class BoxFilter:
         ymax = self.labels_format['ymax']
 
         # Record the boxes that pass all checks here.
-        requirements_met = np.ones(shape=labels.shape[0], dtype=np.bool)
+        requirements_met = np.ones(shape=labels.shape[0], dtype=np.bool_)
 
         if self.check_degenerate:
 
