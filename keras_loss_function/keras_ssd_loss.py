@@ -121,7 +121,7 @@ class SSDLoss:
         Returns:
             A scalar, the total multitask loss for classification and localization.
         '''
-        self.neg_pos_ratio = tf.constant(self.neg_pos_ratio)
+        self.neg_pos_ratio = self.neg_pos_ratio
         self.n_neg_min = tf.constant(self.n_neg_min)
         self.alpha = tf.constant(self.alpha)
 
