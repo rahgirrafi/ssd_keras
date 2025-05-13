@@ -268,6 +268,7 @@ def ssd_300(image_size,
     weights="imagenet",
     pooling=None
     )
+    inputs = keras.Input(shape=(300,300,3))
     base_model.trainable = False
     
     base_model_output = base_model.get_layer('block_13_expand_relu').output
