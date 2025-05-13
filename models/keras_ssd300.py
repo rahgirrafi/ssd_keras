@@ -270,7 +270,7 @@ def ssd_300(image_size,
     )
     base_model.trainable = False
     
-    base_model_output = MobileNet_base.get_layer('block_13_expand_relu').output
+    base_model_output = base_model.get_layer('block_13_expand_relu').output
     block6 = base_model.get_layer('block_6_expand_relu').output  # Shape: (38, 38, 192)
     block13 = base_model.get_layer('block_13_expand_relu').output  # Shape: (19, 19, 576)
                
