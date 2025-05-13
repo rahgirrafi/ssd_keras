@@ -269,7 +269,7 @@ def ssd_300(image_size,
     pooling=None
     )
     MobileNet_base.trainable = False
-    inp = keras.Input(shape=(300,300,3), dtype=float32)
+    inp = keras.Input(shape=(300,300,3), dtype=np.float32)
     base_model = MobileNet_base(inp, training =False)
     
     base_model_output = base_model.get_layer('block_13_expand_relu').output
