@@ -250,7 +250,7 @@ class AnchorBoxes(Layer):
         # Now prepend one dimension to `boxes_tensor` to account for the batch size and tile it along
         # The result will be a 5D tensor of shape `(batch_size, feature_map_height, feature_map_width, n_boxes, 8)`
         boxes_tensor = np.expand_dims(boxes_tensor, axis=0)
-        boxes_tensor = tf.tile(tf.constant(boxes_tensor, dtype='float32'), (K.shape(x)[0], 1, 1, 1, 1))
+        boxes_tensor = tf.tile(tf.constant(boxes_tensor, dtype='float32'), (tf.shape(x)[0], 1, 1, 1, 1))
 
         return boxes_tensor
 
