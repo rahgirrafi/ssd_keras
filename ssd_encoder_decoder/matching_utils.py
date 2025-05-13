@@ -56,7 +56,7 @@ def match_bipartite_greedy(weight_matrix):
 
     # This 1D array will contain for each ground truth box the index of
     # the matched anchor box.
-    matches = np.zeros(num_ground_truth_boxes, dtype=np.int)
+    matches = np.zeros(num_ground_truth_boxes, dtype=np.int32)
 
     # In each iteration of the loop below, exactly one ground truth box
     # will be matched to one anchor box.
