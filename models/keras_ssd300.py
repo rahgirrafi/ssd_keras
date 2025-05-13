@@ -263,7 +263,7 @@ def ssd_300(image_size,
     ############################################################################
 
     base_model = MobileNet_base = MobileNetV2(
-    input_shape=image_size,
+    input_shape=(300,300,3),
     include_top=False,
     weights="imagenet",
     pooling=None
