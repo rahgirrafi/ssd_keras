@@ -48,7 +48,7 @@ class SSDLoss:
         '''
         self.neg_pos_ratio = neg_pos_ratio
         self.n_neg_min = n_neg_min
-        self.alpha = alpha
+        self.alpha = tf.cast(alpha,tf.float64)
 
     def smooth_L1_loss(self, y_true, y_pred):
         '''
