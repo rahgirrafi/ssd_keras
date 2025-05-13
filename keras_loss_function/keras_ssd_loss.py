@@ -137,7 +137,7 @@ class SSDLoss:
 
         # Create masks for the positive and negative ground truth classes.
         negatives = y_true[:,:,0] # Tensor of shape (batch_size, n_boxes)
-        positives = tf.to_float(tf.reduce_max(y_true[:,:,1:-12], axis=-1)) # Tensor of shape (batch_size, n_boxes)
+        positives = tf.cast(tf.reduce_max(y_true[:,:,1:-12], axis=-1), tf.float64) # Tensor of shape (batch_size, n_boxes)
 
         # Count the number of positive boxes (classes 1 to n) in y_true across the whole batch.
         n_positive = tf.reduce_sum(positives)
