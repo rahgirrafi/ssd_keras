@@ -262,13 +262,13 @@ def ssd_300(image_size,
     # Build the network.
     ############################################################################
 
-    MobileNet_base = MobileNetV2(
+    base_model = MobileNetV2(
     input_shape=(300,300,3),
     include_top=False,
     weights="imagenet",
     pooling=None
     )
-    MobileNet_base.trainable = False
+    base_model.trainable = False
     
     base_model_output = MobileNet_base.get_layer('block_13_expand_relu').output
     block6 = base_model.get_layer('block_6_expand_relu').output  # Shape: (38, 38, 192)
