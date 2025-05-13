@@ -168,7 +168,7 @@ class SSDLoss:
         # In the unlikely case when either (1) there are no negative ground truth boxes at all
         # or (2) the classification loss for all negative boxes is zero, return zero as the `neg_class_loss`.
         def f1():
-            return tf.zeros([batch_size])
+            return tf.zeros([batch_size],dtype=tf.float64)
         # Otherwise compute the negative loss.
         def f2():
             # Now we'll identify the top-k (where k == `n_negative_keep`) boxes with the highest confidence loss that
@@ -188,7 +188,7 @@ class SSDLoss:
             negatives_keep = tf.cast(tf.reshape(negatives_keep, [batch_size, n_boxes]), tf.float64) # Tensor of shape (batch_size, n_boxes)
             # ...and use it to keep only those boxes and mask all other classification losses
             neg_class_loss = tf.math.reduce_sum(classification_loss * negatives_keep, axis=-1) # Tensor of shape (batch_size,)
-            return neg_class_loss
+            return tf.cast(neg_class_loss, tf.float64)
 
         neg_class_loss = tf.cond(tf.math.equal(n_neg_losses, tf.constant(0)), f1, f2)
 
