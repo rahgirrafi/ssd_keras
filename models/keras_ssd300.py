@@ -262,18 +262,17 @@ def ssd_300(image_size,
     # Build the network.
     ############################################################################
 
-    base_model = MobileNetV2(
+    base_model = keras.applications.MobileNetV3Large(
     input_shape=(300,300,3),
     include_top=False,
     weights="imagenet",
-    pooling=None
-    )
+    name="MobileNetV3Large",
+)
     inputs = base_model.input
     base_model.trainable = False
     
-    base_model_output = base_model.get_layer('block_13_expand_relu').output
-    block6 = base_model.get_layer('block_6_expand_relu').output  # Shape: (38, 38, 192)
-    block13 = base_model.get_layer('block_13_expand_relu').output  # Shape: (19, 19, 576)
+    base_model_output = base_model.get_layer('activation_1').output
+    block13 = base_model.get_layer('expanded_conv_5_expand').output  # Shape: (38, 38, 120)
                
     fc6 = Conv2D(1024, (3, 3), dilation_rate=(6, 6), activation='relu', padding='same', kernel_initializer='he_normal', kernel_regularizer=l2(l2_reg), name='fc6')(base_model_output)
 
